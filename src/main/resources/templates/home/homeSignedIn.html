@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div class="main h-100 d-flex flex-column">
+<div th:with="" th:replace="fragments/header :: header">
+</div>
+  <div class="container-fluid d-flex flex-fill">
+    <div class="row flex-fill">
+      <div class="col-2 bg-light pr-3 menuContainer d-flex flex-column">
+        <button class="btn btn-outline-primary mt-3 btn-sm btn-block"> Test </button>
+        <nav class="nav nav-pills navbar-light h-100">
+          <ul class="navbar-nav flex-column">
+            <li class="nav-item"><a href="#" class="nav-link">A1</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">A2</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col p-0">
+        <div class="hero-unit">
+          <h1>EOI Spring Boot APP</h1>
+          <p th:inline="text" class="alert alert-success">
+            Hola, <span th:text="${#authentication.principal.name}"></span>. Bienvenido a la aplicación de demo de
+            SpringBoot.
+            Sabemos que tienes <span th:text="${#authentication.principal.edad}"></span> años.
+            Y que tu correo es <span th:text="${#authentication.principal.email}"></span>
+          </p>
+
+          <div class="alert alert-success" sec:authorize="isAuthenticated()">
+            Ya estás registrado
+          </div>
+          <div class="alert alert-success" sec:authorize="hasRole('ROLE_ADMIN')">
+            Además, apareces registrado como administrador
+          </div>
+          <div class="alert alert-success" sec:authorize="hasRole('ROLE_USER')">
+            Además, apareces como usuario normal
+          </div>
+
+          <a sec:authorize="isAuthenticated()" href="/logout" th:href="@{/logout}" class="btn btn-large btn-primary">Log Out</a>
+
+
+        </div>
+        <div th:replace="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? ~{fragments/footer :: footer-admin} : ~{fragments/footer :: footer-standar}">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+variables:
+  DOCKER_HOST: tcp://docker:2375
+
+maven-build:
+  image: maven:3-jdk-20
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - "mvn spring-boot:build-image"
+  artifacts:
+    paths:
+      - target/*.jar

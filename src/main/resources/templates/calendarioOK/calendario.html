@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<div class="container">
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <th class="text-center" >
+                LUNES
+            </th>
+            <th class="text-center" >
+                MARTES
+            </th >
+            <th class="text-center" >
+                MIERCOLES
+            </th>
+            <th class="text-center" >
+                JUEVES
+            </th>
+            <th class="text-center" >
+                VIERNES
+            </th>
+            <th class="text-center" >
+                SABADO
+            </th>
+            <th class="text-center" >
+                DOMINGO
+            </th>
+
+            </thead>
+            <tbody>
+                <tr th:each="semana: ${dias}" >
+                    <td class="text-center" th:text="${dia}" th:each="dia: ${semana}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

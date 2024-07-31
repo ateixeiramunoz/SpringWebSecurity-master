@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<div class="container">
+    <div class="row">
+
+        <form th:method="POST" th:action="@{/scheduling/programar}" th:object="${cita}">
+
+            <label for="nombre">Nombre de la cita</label>
+            <input class="form-control" id="nombre" name="nombre" type="text">
+
+            <label for="fecha">Fecha de la cita</label>
+            <input class="form-control" id="fecha" name="fecha" type="datetime-local">
+            <label for="numeroDias">Dias de antelacion</label>
+            <input class="form-control" id="numeroDias" th:field="*{numeroDias}" name="numeroDias" type="Number">
+            <label for="numeroMinutos">Minutos de antelacion</label>
+            <input class="form-control" id="numeroMinutos" th:field="*{numeroMinutos}" name="numeroMinutos" type="Number">
+            <label for="numeroHoras">Horas de antelacion</label>
+            <input class="form-control" id="numeroHoras" th:field="*{numeroHoras}" name="numeroHoras" type="Number">
+
+            <label for="notificar">Notificar</label>
+            <select class="form-control" id="notificar" th:field="*{notificar}" name="notificar">
+                <option value="TRUE">SI</option>
+                <option value="FALSE">NO</option>
+            </select>
+
+            <label for="notificarTutor">Notificar tutor</label>
+            <select class="form-control" id="notificarTutor" th:field="*{notificarTutor}" name="notificar">
+                <option value="TRUE">SI</option>
+                <option value="FALSE">NO</option>
+            </select>
+
+            <label for="enviarEmail">enviar Email</label>
+            <select class="form-control" id="enviarEmail" th:field="*{enviarEmail}" name="enviarEmail">
+                <option value="TRUE">SI</option>
+                <option value="FALSE">NO</option>
+            </select>
+
+
+            <button class="btn btn-primary" type="submit">CREAR CITA</button>
+        </form>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Destinatario</th>
+            <th>Asunto</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tarea : ${listaTareas}">
+            <td th:text="${tarea.destinatario}"></td>
+            <td th:text="${tarea.asunto}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

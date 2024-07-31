@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<div class="container">
+  <div class="hero-unit">
+    <h1>Test</h1>
+    <p class="alert alert-danger">
+      Bienvenido a la aplicación de demo de SpringBoot
+      Si no estás registrado, puedes registrarte aquí mismo.
+      Si, por el contrario, ya tienes usuario, haz login.
+    </p>
+    <p>
+      <a href="/register" th:href="@{/register}" class="btn btn-large btn-success">Sign up</a>
+      <a href="/login" th:href="@{/login}" class="btn btn-large btn-primary">Log in</a>
+    </p>
+  </div>
+  <div th:replace="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? ~{fragments/footer :: footer-admin} : ~{fragments/footer :: footer-standar}">
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<div class="container">
+
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>USER ID </th>
+        <th>USE NAME </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user, iStat : ${pagina.content}"
+          th:style="${iStat.odd}? 'font-weight: bold;'"
+          th:alt-title="${iStat.even}? 'even' : 'odd'">
+        <td th:text="${user.id}" />
+        <td th:text="${user.name}" />
+      </tr>
+      </tbody>
+    </table>
+    <div th:if="${pagina.totalPages > 0}" class="pagination">
+      <ul class="pagination">
+        <li  class="page-item" th:each="pageNumber : ${pageNumbers}">
+          <a class="page-link" th:href="@{/usersPaginados(size=${pagina.size}, page=${pageNumber})}"
+             th:text=${pageNumber}
+             th:classappend="${pageNumber==pagina.number + 1} ? active"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

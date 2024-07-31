@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header">
+  <div class="container-fluid">
+    <a th:text="#{app.title}" class="navbar-brand" href="/"></a>
+    <a sec:authorize="isAuthenticated()"  th:href="@{/notificaciones}" class="text-dark">
+      <i class="bi bi-envelope  position-relative" style="font-size: 2rem; color: cornflowerblue;">
+        <span style="font-size: 0.5rem;" id="numeronotifbadge"
+              class="position-absolute bottom-50 start-100 translate-middle
+        badge rounded-pill bg-danger">
+                <span class="visually-hidden">unread messages</span>
+        </span>
+      </i>
+    </a>
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/register}">Register</a>
+        <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" aria-current="page" th:href="@{/users}">Lista de
+          Usuarios</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page"
+           th:href="@{/calendarioHTML}">Calendario  HTML</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page" th:href="@{/paginacion}">Paginacion</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page" th:href="@{/filtrado}">Filtrado</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page" th:href="@{/chat}">Chat</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page" th:href="@{/files}">Gestión de Ficheros</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page" th:href="@{/videos}">Videos</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page" th:href="@{/calendarios}">calendarios</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page" th:href="@{/notificaciones}">notificaciones</a>
+        <a sec:authorize="isAuthenticated()" class="nav-link" aria-current="page" th:href="@{/scheduling}">
+          Scheduling</a>
+        <a sec:authorize="!isAuthenticated()" class="my-2 my-lg-0 nav-link float-right btn btn-primary" aria-current="page" th:href="@{/login}">Log In</a>
+        <a sec:authorize="isAuthenticated()" class="my-2 my-lg-0 nav-link float-right btn btn-danger" aria-current="page" th:href="@{/logout}">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>

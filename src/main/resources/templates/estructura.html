@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body >
+<main>
+  <div th:with="" th:replace="fragments/header :: header">
+  </div>
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
+    <ul class="nav nav-pills flex-column mb-auto" style="margin-top: 200px;">
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#collapse1">
+          <i class="bi bi-house-fill"></i>
+          <span class="nav-text">
+        <h4 class="tipo2">Inicio</h4>
+      </span>
+        </a>
+        <div class="collapse" id="collapse1">
+          <ul class="submenu">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Subitem 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Subitem 2</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#collapse2">
+          <i class="bi bi-journals"></i>
+          <span class="nav-text">
+        <h4 class="tipo2">Ejercicios</h4>
+      </span>
+        </a>
+        <div class="collapse" id="collapse2">
+          <ul class="submenu">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Subitem 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Subitem 2</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#collapse3">
+          <i class="bi bi-chat-left-text"></i>
+          <span class="nav-text">
+        <h4 class="tipo2">Foro</h4>
+      </span>
+        </a>
+        <div class="collapse" id="collapse3">
+          <ul class="submenu">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Subitem 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Subitem 2</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#collapse4">
+          <i class="bi bi-calendar-check"></i>
+          <span class="nav-text">
+        <h4 class="tipo2">Calendario</h4>
+      </span>
+        </a>
+        <div class="collapse" id="collapse4">
+          <ul class="submenu">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Subitem 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Subitem 2</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</main>
+</body>
+<style>
+  html {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+  }
+
+  main {
+    height: 100vh;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+</style>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<div class="container">
+  <h1>Formulario de Calendario</h1>
+  <form th:action="@{/calendarios/guardar}" th:object="${calendario}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción:</label>
+      <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="eventos">Eventos:</label>
+      <select class="form-control" id="eventos" th:field="*{eventos}" multiple>
+        <option th:each="evento : ${eventos}" th:value="${evento}" th:text="${evento.mensaje}"></option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a th:href="@{/calendarios}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+<!-- Enlaces a Bootstrap y otros archivos JS -->
+</body>
+</html>

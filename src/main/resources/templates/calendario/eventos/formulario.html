@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<div class="container">
+  <h1>Formulario de Evento</h1>
+  <form th:action="@{/calendarios/{calendarioId}/eventos/guardar(calendarioId=${calendarioId})}" th:method="POST" th:object="${evento}">
+    <input type="hidden" th:field="*{id}">
+    <div class="form-group">
+      <label for="inicioEvento">Fecha y hora de inicio:</label>
+      <input type="datetime-local" class="form-control" id="inicioEvento" th:field="*{inicioEvento}" required>
+    </div>
+    <div class="form-group">
+      <label for="finEvento">Fecha y hora de fin:</label>
+      <input type="datetime-local" class="form-control" id="finEvento" th:field="*{finEvento}" required>
+    </div>
+    <div class="form-group">
+      <label for="mensaje">Mensaje:</label>
+      <textarea class="form-control" id="mensaje" th:field="*{mensaje}" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="tipoDeEvento">Tipo de evento:</label>
+      <select class="form-control" id="tipoDeEvento" th:field="*{tipoDeEvento}">
+        <option th:each="tipo : ${tiposDeEvento}" th:value="${tipo}" th:text="${tipo.nombre}"></option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="users">Usuarios:</label>
+      <select class="form-control" id="users" th:field="*{users}" multiple>
+        <option th:each="user : ${users}" th:value="${user}" th:text="${user.nombre}"></option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a th:href="@{/eventos}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+<!-- Enlaces a Bootstrap y otros archivos JS -->
+</body>
+</html>

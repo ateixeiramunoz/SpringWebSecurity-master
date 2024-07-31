@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+  <!-- Se incluye la cabecera de la página mediante la inclusión del fragmento "head" -->
+</head>
+<body>
+<!-- Cuerpo de la página -->
+<div th:replace="fragments/header :: header">
+  <!-- Se incluye el encabezado de la página mediante la inclusión del fragmento "header" -->
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Lista de videos</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="list-group">
+        <div th:each="video : ${videos}" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1" th:text="${video.getFileName()}"></h5>
+            <small th:text="${video.getSize()}"></small>
+          </div>
+          <div class="d-flex w-100 justify-content-between">
+            <span th:text="${video.getType()}"></span>
+            <div>
+              <a th:href="@{${video.getUrl()}}" class="btn btn-success btn-sm" role="button">
+                <i class="bi bi-cloud-download"></i> Descargar
+              </a>
+              <a th:href="@{${'/stream/' + video.getFileName()}}" class="btn btn-primary btn-sm" role="button">
+                <i class="bi bi-play"></i> Stream
+              </a>
+              <a th:href="@{${'/videos/watch/' + video.getFileName()}}" class="btn btn-info btn-sm" role="button">
+                <i class="bi bi-eye"></i> Visualizar
+              </a>
+            </div>
+            <video id="videoPlayer2" width="100%" height="auto" controls preload="none" autoplay>
+              <source th:src="${'/stream/' + video.getFileName() + '?bytes=0-50'}" th:type="${video.getType()}">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

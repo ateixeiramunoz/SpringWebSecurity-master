@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div th:replace="fragments/header :: header">
+</div>
+<!-- Sección para mostrar la lista de archivos personales en la Base de Datos -->
+<div class="container">
+    <div class="card mt-6">
+        <div class="card-header">
+            <h5 class="card-title">Calendarios de Eventos</h5>
+        </div>
+        <div class="card-body">
+            <div th:if="${not #lists.isEmpty(calendarios)}">
+                <ul class="list-group">
+                    <li th:each="calendario : ${calendarios}" class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span th:text="${calendario.nombre}"></span>
+                            <span th:text="${calendario.descripcion}"></span>
+                            <div>
+                                <a th:href="@{/calendarios/{id}/editar(id=${calendario.id})}" class="btn btn-primary btn-sm mr-1" role="button">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </a>
+                                <a th:href="@{/calendarios/{id}/eliminar(id=${calendario.id})}" class="btn btn-danger btn-sm" role="button" onclick="return confirm('¿Estás seguro de que quieres eliminar este calendario?')">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </a>
+                                <a th:href="@{/calendarios/{id}/eventos/nuevo(id=${calendario.id})}" class="btn btn-success btn-sm ml-1" role="button">
+                                    <i class="bi bi-plus"></i> Añadir evento
+                                </a>
+
+                            </div>
+                        </div>
+                        <div th:if="${not #lists.isEmpty(calendario.eventos)}">
+                            <ul class="list-group mt-2">
+                                <li th:each="evento : ${calendario.eventos}" class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span th:text="${evento.mensaje}"></span>
+                                        <span th:text="${evento.inicioEvento}"></span>
+                                        <span th:text="${evento.finEvento}"></span>
+                                    </div>
+                                    <!--<div class="card-text">
+                                        <small class="text-muted" th:text="'Tipo: ' + ${evento.tipoDeEvento.nombre}"></small>
+                                        <small class="text-muted ml-2" th:text="'Usuarios: ' + ${#lists.size(evento.users)}"></small>
+                                    </div>-->
+                                </li>
+                            </ul>
+                        </div>
+                        <div th:if="${#lists.isEmpty(calendario.eventos)}" class="alert alert-info mt-2" role="alert">
+                            No hay eventos disponibles para este calendario
+                        </div>
+                    </li>
+                </ul>
+                <div class="text-center mt-3">
+                    <a th:href="@{/calendarios/nuevo}" class="btn btn-success" role="button">
+                        <i class="bi bi-plus"></i> Añadir calendario
+                    </a>
+                </div>
+            </div>
+            <div th:if="${#lists.isEmpty(calendarios)}" class="alert alert-info" role="alert">
+                No hay calendarios disponibles
+                <div class="text-center mt-3">
+                    <a th:href="@{/calendarios/crear}" class="btn btn-success" role="button">
+                        <i class="bi bi-plus"></i> Añadir calendario
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

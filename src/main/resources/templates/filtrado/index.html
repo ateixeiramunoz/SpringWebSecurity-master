@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head">
+  <!-- Se incluye la cabecera de la página mediante la inclusión del fragmento "head" -->
+</head>
+<body>
+<!-- Cuerpo de la página -->
+<div th:replace="fragments/header :: header">
+  <!-- Se incluye el encabezado de la página mediante la inclusión del fragmento "header" -->
+</div>
+
+
+
+<form id="tabla1" th:object="${searchFormData}" th:action="@{/filtrado}" th:method="post">
+  <input th:field="*{searchText}"  type="text" name="nombre" id="nombre">
+  <button type="submit">Filtrar</button>
+</form>
+
+
+<table id="tabla2" th:if="${filtroLista}!=''" class="table table-striped" >
+  <tbody>
+    <tr th:each="usuario : ${listaDatos.?[name == #root.filtroLista]}">
+      <td th:text="${usuario.name}" ></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table th:if="${filtroLista}==''" class="table table-striped" >
+  <tbody>
+  <tr th:each="usuario: ${listaDatos}">
+    <td th:text="${usuario.name}" ></td>
+  </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>

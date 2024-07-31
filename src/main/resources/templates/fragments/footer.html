@@ -1,0 +1,21 @@
+<!-- /*  Multiple fragments may be defined in one file */-->
+<footer th:fragment="footer-standar" class="py-3 my-4">
+  <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+    <li class="nav-item"><a th:href="@{/}" class="nav-link px-2 text-muted">Inicio</a></li>
+    <li class="nav-item"><a th:href="@{/features}" class="nav-link px-2 text-muted">Características</a></li>
+    <li class="nav-item"><a th:href="@{/faqs}" class="nav-link px-2 text-muted">Preguntas frecuentes</a></li>
+    <li class="nav-item"><a th:href="@{/about}" class="nav-link px-2 text-muted">Acerca de</a></li>
+  </ul>
+  <p class="text-center text-muted">© 2023 Empresa, Inc</p>
+</footer>
+<footer th:fragment="footer-admin" class="py-3 my-4">
+  <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+    <li class="nav-item"><a th:href="@{/admin}" class="nav-link px-2 text-muted">Panel de administración</a></li>
+    <li class="nav-item"><a th:href="@{/admin/users}" class="nav-link px-2 text-muted">Usuarios</a></li>
+    <li class="nav-item"><a th:href="@{/admin/files}" class="nav-link px-2 text-muted">Archivos</a></li>
+    <li class="nav-item"><a th:href="@{/admin/settings}" class="nav-link px-2 text-muted">Ajustes</a></li>
+  </ul>
+  <p class="text-center text-muted">© 2023 Empresa, Inc</p>
+</footer>
+
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div th:with="" th:replace="fragments/header :: header">
+</div>
+<noscript>
+  <h2 style="color: #ff0000">
+    Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable Javascript
+    and reload this page!
+  </h2>
+</noscript>
+
+<div class="card">
+  <div class="card-body">
+    <form th:method="get" th:action="@{/notificaciones(queryTo, queryFrom)}">
+      <div class="form-group">
+        <label for="filtradoDestinatario">Filtrar por Destinatario</label>
+        <input  class="form-control" th:value="${queryTo}" id="filtradoDestinatario" type="text" name="queryTo">
+        <button class="btn btn-primary" type="submit">Filtrar</button>
+      </div>
+      <div class="form-group">
+        <label for="filtradoRemitente">Filtrar por Remitente</label>
+        <input  class="form-control" th:value="${queryFrom}" id="filtradoRemitente" type="text" name="queryFrom">
+        <button class="btn btn-primary" type="submit">Filtrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="w-90 p-3">
+  <table class="table table-striped text-nowrap">
+    <thead>
+    <th>
+      ID
+    </th>
+    <th>
+      From
+    </th>
+    <th>
+      To
+    </th>
+    <th>
+      Mensaje
+    </th>
+    <th>
+      Fecha
+    </th>
+    <th>
+      Estado
+    </th>
+    <th>
+      Acciones
+    </th>
+    </thead>
+    <tbody>
+    <tr th:each="notificacion, iStat: ${pagina.content}">
+      <td th:text="${notificacion.id}">
+      </td>
+      <td th:text="${notificacion.userFrom}">
+      </td>
+      <td th:text="${notificacion.userTo}">
+      </td>
+      <td th:text="${notificacion.text}">
+      </td>
+      <td th:text="${notificacion.fecha}">
+      </td>
+      <td th:text="${notificacion.estado}">
+      </td>
+      <td>
+        <form th:if="${notificacion.estado == 'Pendiente'}" th:action="@{/leerNotificacion/{id}(id=${notificacion.id})}"
+              th:method="GET">
+          <button type="submit">
+            Marcar Leida
+          </button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div th:if="${pagina.totalPages > 0}" class="pagination">
+    <ul class="pagination">
+      <li  class="page-item" th:each="pageNumber : ${pageNumbers}">
+        <a class="page-link"
+           th:href="@{/notificaciones(size=${pagina.size}, page=${pageNumber}, filtro=${filtradoNombre} )}"
+           th:text=${pageNumber}
+           th:classappend="${pageNumber==pagina.number + 1} ? active"></a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+</body>
+</html>

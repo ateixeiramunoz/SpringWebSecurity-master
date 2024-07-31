@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+<div th:with="" th:replace="fragments/header :: header">
+</div>
+<div th:with="" th:replace="fragments/toast :: toast">
+</div>
+
+<noscript>
+  <h2 style="color: #ff0000">
+    Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable Javascript
+    and reload this page!
+  </h2>
+</noscript>
+<br>
+
+<div id="main-content" class="container">
+  <div class="row">
+    <div class="col-md-9">
+        <div class="form-group">
+          <label for="connect">WebSocket connection:</label>
+          <button id="connect" class="btn btn-primary">Connect</button>
+          <button id="disconnect" class="btn btn-danger">Disconnect</button>
+        </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div id="formMensaje" class="col-md-9">
+
+        <div class="form-group">
+          <h2>Envío de mensajes privados</h2>
+          <br><br>
+          <div class="card">
+            <div class="card-body">
+              <label th:text="#{chat.nombreDestino}" for="namePrivate"></label>
+              <input type="text" id="namePrivate" class="form-control" placeholder="email del usuario destino">
+              <label th:text="#{chat.mensaje}" for="msgTxt"></label>
+              <input type="text" id="msgTxt" class="form-control" placeholder="Escribe tu mensaje">
+
+              <input name="userID" type="hidden" th:value="${userID}" id="userID" class="form-control" placeholder="Escribe tu mensaje">
+            </div>
+          </div>
+        </div>
+        <button th:text="#{boton.enviar}" id="sendPrivate" class="btn btn-primary" type="submit"></button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table id="conversation" class="table table-striped">
+        <thead>
+        <tr>
+          <th>Mensajes</th>
+        </tr>
+        </thead>
+        <tbody id="greetings"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
