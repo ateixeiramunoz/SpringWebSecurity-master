@@ -3,6 +3,7 @@ package com.eoi.springwebsecurity.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -93,88 +94,136 @@ public class SecurityConfig {
      *
      * @throws Exception Excepción lanzada si hay problemas al configurar el filtro.
      */
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//
+//        http
+//                /*
+//                  Esta línea de código {@code .csrf().disable();} desactiva la protección contra ataques CSRF
+//                  (Cross-Site Request Forgery) para todas las solicitudes en la aplicación web.
+//                  CSRF es un tipo de ataque de seguridad en el que un atacante engaña al usuario para que ejecute
+//                  una acción no deseada en un sitio web, utilizando para ello la sesión activa del usuario.
+//                   La desactivación de la protección CSRF no es una práctica recomendada, pero en algunos casos
+//                  puede ser necesario hacerlo,
+//                  por ejemplo, para pruebas locales o en aplicaciones en las que la protección CSRF no es crítica.
+//                  Si no desactivamos csrf, debemos tener en cuenta que funciona de manera automática con la librería
+//                   thymeleaf-extras-springsecurity6
+//                  Thymeleaf reconocerá los formularios que creemos con el atributo "th:action" y de este modo les
+//                  incluirá de manera automática el campo hidden _csfr
+//                  De lo contrario, deberíamos hacer dicha gestión a mano.
+//                 */
+//                //.csrf().disable();
+//                .authorizeHttpRequests(authorize -> authorize
+//                        // Peticiones permitidas para todos los usuarios
+//                        .requestMatchers("/index", "/", "").permitAll()
+//                        .requestMatchers("/webjars/**", "/js/**", "/css/**", "/img/**", "/fonts/**", "/favicon.ico").permitAll()
+//                        .requestMatchers("*css", "*js").permitAll()
+//                        .requestMatchers("/register/**", "/forgot_password", "/reset_password", "/signup", "/about","/error", "/login").permitAll()
+//                        //Peticiones asociadas a las notificaciones y conexiones websocket
+//                        .requestMatchers("/gs-guide-websocket/**").permitAll()
+//
+//                        //Peticiones asociadas al calendario
+//                        .requestMatchers("/paginacion",
+//                                "/filtrado",
+//                                "/estructura/**",
+//                                "/calendario/**",
+//                                "/calendarios/**",
+//                                "/eventos" +
+//                                "/**").permitAll()
+//                         //Peticiones permitidas sólo para usuarios con rol ADMIN
+//                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+//                        .requestMatchers("/users").hasAuthority("ADMIN")
+//
+//                        // Peticiones permitidas sólo para usuarios autenticados
+//                        .requestMatchers(
+//                                "/calendarioHTML",
+//                                "/chat",
+//                                "/videos",
+//                                "/numeroNotificaciones",
+//                                "/notificaciones",
+//                                "/leerNotificacion/**",
+//                                "/files/**",
+//                                "/upload",
+//                                "/test/**",
+//                                "/userFiles/**",
+//                                "/databasefiles/**",
+//                                "/uploadUserFileToDatabaseStoreInFileSystem",
+//                                "/uploadUserFileToDatabase",
+//                                "/uploadUserFileToFileSystem",
+//                                "/uploadToFileSystem",
+//                                "/uploadToDatabase",
+//                                "/scheduling/**",
+//                                "/scheduling/programar").authenticated()
+//
+//                        //Aceptar a todos los usuarios para stream de videos
+//                        .requestMatchers("/stream/**").authenticated()
+//                        .requestMatchers("/security/**").authenticated()
+//                        // Peticiones permitidas sólo para usuarios autenticados con rol USER
+//                        .requestMatchers("/user/**").hasRole("USER")
+//
+//
+//                ).formLogin(
+//                        form -> form
+//                                .loginPage("/login") // Establece la ruta a la página de inicio de sesión
+//                                .loginProcessingUrl("/login") // Establece la ruta de procesamiento del formulario de
+//                                // inicio de sesión
+//                                .defaultSuccessUrl("/") // Establece la ruta de redirección después de que el usuario
+//                                // inicia sesión correctamente
+//                                .permitAll() // Permite a cualquier usuario acceder a la página de inicio de sesión
+//                ).logout(
+//                        logout -> logout
+//                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // Establece la ruta para
+//                                // procesar la petición de cierre de sesión
+//                                .permitAll() // Permite a cualquier usuario acceder a la página de cierre de sesión
+//                );
+//        return http.build();
+//    }
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .permitAll()
+        );
+        //cierre de sesión
+        http.logout(logout -> logout
+                .logoutUrl("/usuarios/logout")
+                .logoutSuccessUrl("/")
+        );
 
-        http
-                /*
-                  Esta línea de código {@code .csrf().disable();} desactiva la protección contra ataques CSRF
-                  (Cross-Site Request Forgery) para todas las solicitudes en la aplicación web.
-                  CSRF es un tipo de ataque de seguridad en el que un atacante engaña al usuario para que ejecute
-                  una acción no deseada en un sitio web, utilizando para ello la sesión activa del usuario.
-                   La desactivación de la protección CSRF no es una práctica recomendada, pero en algunos casos
-                  puede ser necesario hacerlo,
-                  por ejemplo, para pruebas locales o en aplicaciones en las que la protección CSRF no es crítica.
-                  Si no desactivamos csrf, debemos tener en cuenta que funciona de manera automática con la librería
-                   thymeleaf-extras-springsecurity6
-                  Thymeleaf reconocerá los formularios que creemos con el atributo "th:action" y de este modo les
-                  incluirá de manera automática el campo hidden _csfr
-                  De lo contrario, deberíamos hacer dicha gestión a mano.
-                 */
-                //.csrf().disable();
-                .authorizeHttpRequests(authorize -> authorize
-                        // Peticiones permitidas para todos los usuarios
-                        .requestMatchers("/index", "/", "").permitAll()
-                        .requestMatchers("/webjars/**", "/js/**", "/css/**", "/img/**", "/fonts/**", "/favicon.ico").permitAll()
-                        .requestMatchers("*css", "*js").permitAll()
-                        .requestMatchers("/register/**", "/forgot_password", "/reset_password", "/signup", "/about","/error", "/login").permitAll()
-                        //Peticiones asociadas a las notificaciones y conexiones websocket
-                        .requestMatchers("/gs-guide-websocket/**").permitAll()
-
-                        //Peticiones asociadas al calendario
-                        .requestMatchers("/paginacion",
-                                "/filtrado",
-                                "/estructura/**",
-                                "/calendario/**",
-                                "/calendarios/**",
-                                "/eventos" +
-                                "/**").permitAll()
-                         //Peticiones permitidas sólo para usuarios con rol ADMIN
-                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/users").hasAuthority("ADMIN")
-
-                        // Peticiones permitidas sólo para usuarios autenticados
-                        .requestMatchers(
-                                "/calendarioHTML",
-                                "/chat",
-                                "/videos",
-                                "/numeroNotificaciones",
-                                "/notificaciones",
-                                "/leerNotificacion/**",
-                                "/files/**",
-                                "/upload",
-                                "/test/**",
-                                "/userFiles/**",
-                                "/databasefiles/**",
-                                "/uploadUserFileToDatabaseStoreInFileSystem",
-                                "/uploadUserFileToDatabase",
-                                "/uploadUserFileToFileSystem",
-                                "/uploadToFileSystem",
-                                "/uploadToDatabase",
-                                "/scheduling/**",
-                                "/scheduling/programar").authenticated()
-
-                        //Aceptar a todos los usuarios para stream de videos
-                        .requestMatchers("/stream/**").authenticated()
-                        .requestMatchers("/security/**").authenticated()
-                        // Peticiones permitidas sólo para usuarios autenticados con rol USER
-                        .requestMatchers("/user/**").hasRole("USER")
+        http.logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+        );
 
 
-                ).formLogin(
-                        form -> form
-                                .loginPage("/login") // Establece la ruta a la página de inicio de sesión
-                                .loginProcessingUrl("/login") // Establece la ruta de procesamiento del formulario de
-                                // inicio de sesión
-                                .defaultSuccessUrl("/") // Establece la ruta de redirección después de que el usuario
-                                // inicia sesión correctamente
-                                .permitAll() // Permite a cualquier usuario acceder a la página de inicio de sesión
-                ).logout(
-                        logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // Establece la ruta para
-                                // procesar la petición de cierre de sesión
-                                .permitAll() // Permite a cualquier usuario acceder a la página de cierre de sesión
-                );
+
+        // Autorización de Solicitudes
+        http.authorizeHttpRequests()
+                .requestMatchers("/js/**").permitAll()
+                .requestMatchers("/img/**").permitAll()
+                .requestMatchers("/css/**").permitAll()
+                .requestMatchers("/fonts/**").permitAll()
+                .requestMatchers("/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/**").permitAll()
+                .requestMatchers("/chat/**").permitAll()
+                .requestMatchers("/mensajes/").permitAll()
+                .anyRequest().authenticated();
         return http.build();
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 }
