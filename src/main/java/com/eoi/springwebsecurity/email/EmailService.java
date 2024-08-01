@@ -41,6 +41,9 @@ public class EmailService {
     public void sendEmail(String recipientEmail, String link, String cuerpoMensaje)
     {
         log.info("HEMOS ENVIADO EL MAIL PERO NJO FUNCIONA EL ENVIO!!");
+
+
+
     }
 
 }
