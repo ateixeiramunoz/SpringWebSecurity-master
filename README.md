@@ -26,7 +26,7 @@ Dentro de [com.eoi.springwebsecurity](src/main/java/com/eoi/springwebsecurity/) 
 
 1. Selecciona JDK 20 e importa el proyecto como Maven.
 2. Revisa la configuración de MySQL, correo y almacenamiento en `application.properties`.
-3. Prepara una base de datos de pruebas y configura tus propios datos de conexión.
+3. Prepara una base de datos de pruebas y configura tus propios datos de conexión. Para enviar correo, define `MAIL_USERNAME` y `MAIL_PASSWORD` en el entorno del proceso; sin esos valores, el ejemplo no dispone de credenciales de correo.
 4. Ejecuta `SpringWebSecurityApplication` desde el IDE.
 
 Para utilizar el puerto 8080 durante el desarrollo, pasa `--server.port=8080` como argumento de la aplicación. El puerto 80 configurado en el repositorio puede requerir permisos adicionales según el sistema.
